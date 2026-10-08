@@ -1,0 +1,26 @@
+# Python & Virtual Environment
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# Environment variables & secrets
+.env
+
+# Databases
+*.sqlite3
+
+# IDE / Editors
+.idea/
+.vscode/
+
+# Playwright & Browsers
+.playwright/
+test-results/
+
+# Logs & OS generated
+*.log
+.DS_Store
+Thumbs.db
