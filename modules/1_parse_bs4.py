@@ -40,7 +40,6 @@ def clean_price(price_raw: str | None) -> Decimal | None:
     if not price_raw:
         return None
 
-    # Залишаємо тільки цифри, крапки та коми
     price_str = str(price_raw).replace(",", ".").strip()
     price_str = re.sub(r"[^\d.]", "", price_str)
 
@@ -78,7 +77,7 @@ def run():
         "parser_type": "BS4",
     }
 
-    # Extract Code first (critical field)
+    # Extract Code
     try:
         code_elem = soup.select_one(".br-pr-code-val, #product_code .br-pr-code-val")
         if code_elem:
