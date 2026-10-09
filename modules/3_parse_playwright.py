@@ -108,27 +108,21 @@ def run():
 
         dropdown_items = page.locator(dropdown_items_selector)
         count = dropdown_items.count()
-        print(f"-> Total dropdown items found: {count}")
 
         if count >= 2:
             target_product = dropdown_items.nth(1)
-            print("-> Target selected: 2nd product in dropdown")
         else:
             target_product = dropdown_items.nth(0)
-            print("-> Warning: Less than 2 products found. Selected 1st product instead.")
 
         target_url = target_product.get_attribute("href")
-        print(f"-> Target Product URL: {target_url}")
 
         try:
             target_product.click()
         except Exception as e:
-            print(f"[Warning] Click failed, navigating via URL: {e}")
             page.goto(target_url, wait_until="domcontentloaded")
 
         page.wait_for_selector("h1.desktop-only-title", state="visible", timeout=15000)
         page.wait_for_timeout(1500)
-        print("-> Successfully loaded product page!")
 
         print("[Step 5] Extracting product details...")
         soup = BeautifulSoup(page.content(), "html.parser")
@@ -137,7 +131,6 @@ def run():
         parsed_data["code"] = safe_extract(lambda: clean_text(code_elem.text))
 
         if not parsed_data["code"]:
-            print("[Error] Mandatory field 'code' not found. Aborting parse.")
             browser.close()
             return
 

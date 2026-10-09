@@ -96,12 +96,10 @@ def run():
 
         first_product = driver.find_element("css selector", dropdown_item_selector)
         first_product_url = first_product.get_attribute("href")
-        print(f"-> Found product URL: {first_product_url}")
 
         try:
             first_product.click()
         except Exception as e:
-            print(f"[Warning] Direct click failed, navigating via URL: {e}")
             driver.get(first_product_url)
 
         sb.wait_for_element_visible("h1.desktop-only-title", timeout=15)
@@ -114,7 +112,6 @@ def run():
         parsed_data["code"] = safe_extract(lambda: clean_text(code_elem.text))
 
         if not parsed_data["code"]:
-            print("[Error] Mandatory field 'code' not found. Aborting parse.")
             return
 
         title_elem = soup.select_one("h1.desktop-only-title, h1.main-title, h1")
